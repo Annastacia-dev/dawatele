@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_17_071254) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_17_095008) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -43,6 +43,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_17_071254) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "brands", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.string "code", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -52,6 +61,64 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_17_071254) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "medical_conditions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.string "code", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "product_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.string "slug", null: false
+    t.string "code", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "product_subcategories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.string "slug", null: false
+    t.string "code", null: false
+    t.integer "status", default: 0, null: false
+    t.uuid "product_category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_category_id"], name: "index_product_subcategories_on_product_category_id"
+  end
+
+  create_table "products", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "sku", null: false
+    t.string "name", null: false
+    t.text "description", null: false
+    t.string "slug", null: false
+    t.integer "status", default: 0, null: false
+    t.jsonb "metadata", default: {}, null: false
+    t.uuid "brand_id", null: false
+    t.uuid "product_category_id", null: false
+    t.uuid "product_subcategory_id"
+    t.uuid "medical_condition_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brand_id"], name: "index_products_on_brand_id"
+    t.index ["medical_condition_id"], name: "index_products_on_medical_condition_id"
+    t.index ["product_category_id"], name: "index_products_on_product_category_id"
+    t.index ["product_subcategory_id"], name: "index_products_on_product_subcategory_id"
+  end
+
+  create_table "vendors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "versions", force: :cascade do |t|
@@ -66,4 +133,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_17_071254) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "product_subcategories", "product_categories"
+  add_foreign_key "products", "brands"
+  add_foreign_key "products", "medical_conditions"
+  add_foreign_key "products", "product_categories"
+  add_foreign_key "products", "product_subcategories"
 end

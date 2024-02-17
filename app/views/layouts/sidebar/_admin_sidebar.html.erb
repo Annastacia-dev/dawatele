@@ -7,23 +7,48 @@
 
       <hr class='w-full border border-gray-800'>
 
+      <%= link_to brands_path, class: 'flex justify-center items-center gap-2 text-white no-underline p-2 hover:bg-gray-800' do %>
+        <i class="fa-solid fa-tags"></i>
+        <p class='uppercase'>brands</p>
+      <% end %>
+
+      <hr class='w-full border border-gray-800'>
+
+      <%= link_to medical_conditions_path, class: 'flex justify-center items-center gap-2 text-white no-underline p-2 hover:bg-gray-800' do %>
+        <i class="fa-solid fa-virus"></i>
+        <p class='uppercase'>medical conditions</p>
+      <% end %>
+
+      <hr class='w-full border border-gray-800'>
+
       <details class='w-full'>
-        <summary class='flex justify-between items-center gap-2 text-white no-underline p-2 hover:bg-gray-800'>
+        <summary class='flex  items-center gap-2 text-white no-underline p-2'>
         <i class="fa-regular fa-rectangle-list"></i>
           <p class='uppercase'>products</p>
           <i class="fas fa-caret-down"></i>
         </summary>
         <div class='flex flex-col items-start gap-2 text-xs text-white list-style-none'>
-          <%= link_to root_path, class: 'flex justify-center items-center gap-2 text-white no-underline p-2 hover:bg-gray-800' do %>
+          <%= link_to products_path, class: 'flex justify-center items-center gap-2 text-white no-underline p-2 hover:bg-gray-800' do %>
             <i class="fa-solid fa-pills"></i>
             <p class='uppercase'>products</p>
           <% end %>
-          <%= link_to root_path, class: 'flex justify-center items-center gap-2 text-white no-underline p-2 hover:bg-gray-800' do %>
+          <%= link_to product_categories_path, class: 'flex justify-center items-center gap-2 text-white no-underline p-2 hover:bg-gray-800' do %>
             <i class="fa-solid fa-layer-group"></i>
-            <p class='uppercase'>product categories</p>
+            <p class='uppercase'>categories</p>
+          <% end %>
+          <%= link_to product_subcategories_path, class: 'flex justify-center items-center gap-2 text-white no-underline p-2 hover:bg-gray-800' do %>
+            <i class="fa-solid fa-tags"></i>
+            <p class='uppercase'>subcategories</p>
           <% end %>
         </div>
       </details>
+
+      <hr class='w-full border border-gray-800'>
+
+      <%= link_to vendors_path, class: 'flex justify-center items-center gap-2 text-white no-underline p-2 hover:bg-gray-800' do %>
+        <i class="fa-solid fa-shop"></i>
+        <p class='uppercase'>vendors</p>
+      <% end %>
 
    </div>
 </div>

@@ -1,0 +1,7 @@
+<div id="<%= dom_id product_subcategory %>">
+  <% if action_name != "show" %>
+    <%= link_to "Show this product subcategory", product_subcategory, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this product subcategory", edit_product_subcategory_path(product_subcategory), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
