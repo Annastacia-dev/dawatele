@@ -1709,6 +1709,9 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.4)
+    pg_search (2.3.6)
+      activerecord (>= 5.2)
+      activesupport (>= 5.2)
     postmark (1.7.1)
       json
       rake
@@ -1870,6 +1873,7 @@ DEPENDENCIES
   jbuilder
   paper_trail (~> 15.0)
   pg (~> 1.1)
+  pg_search (~> 2.3)
   postmark-rails (~> 0.12.0)
   puma (>= 5.0)
   rails (~> 7.1.3)

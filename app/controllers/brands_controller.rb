@@ -3,7 +3,15 @@ class BrandsController < ApplicationController
 
   # GET /brands or /brands.json
   def index
-    @brands = Brand.all.order(name: :asc).paginate(page: params[:page], per_page: 5)
+    if params[:search].present?
+      @brands = Brand.search(params[:search]).order(name: :asc).paginate(page: params[:page], per_page: 5)
+    else
+      @brands = Brand.all.order(name: :asc).paginate(page: params[:page], per_page: 5)
+    end
+
+    respond_to do |format|
+      format.html
+    end
   end
 
   # GET /brands/1 or /brands/1.json

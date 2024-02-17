@@ -14,8 +14,10 @@ class Brand < ApplicationRecord
   has_paper_trail
   include Statusable
   include Sluggable
+  include Searchable
 
   friendly_slug_scope to_slug: :name
+  searchable against: :name
 
   # Associations
   has_one_attached :logo
