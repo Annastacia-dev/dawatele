@@ -25,7 +25,7 @@ class BrandsController < ApplicationController
 
     respond_to do |format|
       if @brand.save
-        format.html { redirect_to brand_url(@brand), notice: "Brand was successfully created." }
+        format.html { redirect_to brands_path(@brand), notice: "Brand was successfully created." }
         format.json { render :show, status: :created, location: @brand }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -60,11 +60,11 @@ class BrandsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_brand
-      @brand = Brand.find(params[:id])
+      @brand = Brand.friendly.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def brand_params
-      params.fetch(:brand, {})
+      params.require(:brand).permit(:name, :logo)
     end
 end

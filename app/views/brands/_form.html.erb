@@ -1,17 +1,18 @@
 <%= form_with(model: brand, class: "contents") do |form| %>
-  <% if brand.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(brand.errors.count, "error") %> prohibited this brand from being saved:</h2>
+  <%= render 'shared/error_messages', object: brand %>
 
-      <ul>
-        <% brand.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+  <div class="flex flex-col gap-6 p-4">
+    <div class='flex flex-col gap-1'>
+      <%= form.label :name, class: "uppercase text-sm font-mediu" %>
+      <%= form.text_field :name, class: 'bg-transparent border border-grray-300 p-3 outline-none w-60 focus:ring-transparent focus:outline-none shadow-none',
+      required: true %>
     </div>
-  <% end %>
-
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <div class='flex flex-col gap-1'>
+      <%= form.label :logo, class: "font-medium" %>
+      <%= form.file_field :logo, class: "bg-gray-100 border border-gray-300 p-3 outline-none w-80 focus:ring-transparent focus:outline-none shadow-none text-sm  file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-secondary hover:file:bg-gray-100" %>
+    </div>
+    <div class="inline mt-4">
+      <%= form.submit class: "rounded py-3 px-5 bg-primary text-white inline-block font-medium cursor-pointer border-none outline-none uppercase" %>
+    </div>
   </div>
 <% end %>

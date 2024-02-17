@@ -23,7 +23,7 @@ class Brand < ApplicationRecord
 
   # Callbacks
   before_validation :downcase_name
-  before_create :assign_code
+  before_validation :assign_code
 
   # Validations
   validates :name, presence: true, uniqueness: { case_sensitive: false }

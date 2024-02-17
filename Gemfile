@@ -6,9 +6,7 @@ gem 'aws-sdk', require: false
 gem "bootsnap", require: false
 gem 'bullet', '~> 7.1', '>= 7.1.4'
 gem 'devise', '~> 4.9', '>= 4.9.3'
-gem 'dropzonejs-rails'
 gem 'friendly_id', '~> 5.4'
-gem "primer_view_components"
 gem "image_processing", "~> 1.2"
 gem "importmap-rails"
 gem "jbuilder"
