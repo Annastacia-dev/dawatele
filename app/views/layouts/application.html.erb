@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Dawateleke</title>
+    <title>dawatele</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= favicon_link_tag 'favicon.ico' %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-
+    <%= stylesheet_link_tag("primer_view_components") %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag("primer_view_components") %>
     <%= javascript_importmap_tags %>
+    <script src="https://kit.fontawesome.com/bfa19ffe9b.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+   <%= render("layouts/sidebar/admin_sidebar") %>
+    <main class="pl-60">
       <%= yield %>
     </main>
   </body>
