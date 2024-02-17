@@ -3,16 +3,16 @@
 
   <div class="flex flex-col gap-6 p-4">
     <div class='flex flex-col gap-1'>
-      <%= form.label :name, class: "uppercase text-sm font-mediu" %>
+      <%= form.label :name, class: "uppercase text-sm font-medium" %>
       <%= form.text_field :name, class: 'bg-transparent border border-grray-300 p-3 outline-none w-60 focus:ring-transparent focus:outline-none shadow-none',
       required: true %>
     </div>
     <div class='flex flex-col gap-1'>
-      <%= form.label :logo, class: "font-medium" %>
+      <%= form.label :logo, class: "font-medium text-sm uppercase" %>
       <%= form.file_field :logo, class: "bg-gray-100 border border-gray-300 p-3 outline-none w-80 focus:ring-transparent focus:outline-none shadow-none text-sm  file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-secondary hover:file:bg-gray-100" %>
     </div>
     <div class="inline mt-4">
-      <%= form.submit class: "rounded py-3 px-5 bg-primary text-white inline-block font-medium cursor-pointer border-none outline-none uppercase" %>
+      <%= form.submit class: "rounded py-3 px-5 bg-primary text-white inline-block font-medium cursor-pointer border-none outline-none uppercase text-sm" %>
     </div>
   </div>
 <% end %>

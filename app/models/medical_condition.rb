@@ -44,7 +44,7 @@ class MedicalCondition < ApplicationRecord
     if MedicalCondition.count.zero?
       '01'
     else
-      last_code = MedicalCondition.last.code
+      last_code = MedicalCondition.order(:created_at).last.code
       last_code.next
     end
   end

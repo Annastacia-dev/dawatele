@@ -3,7 +3,7 @@ class BrandsController < ApplicationController
 
   # GET /brands or /brands.json
   def index
-    @brands = Brand.all
+    @brands = Brand.all.order(name: :asc).paginate(page: params[:page], per_page: 5)
   end
 
   # GET /brands/1 or /brands/1.json
@@ -25,7 +25,10 @@ class BrandsController < ApplicationController
 
     respond_to do |format|
       if @brand.save
-        format.html { redirect_to brands_path(@brand), notice: "Brand was successfully created." }
+        format.html {
+          flash[:success] = "Brand was successfully created."
+          redirect_to brands_path
+        }
         format.json { render :show, status: :created, location: @brand }
       else
         format.html { render :new, status: :unprocessable_entity }

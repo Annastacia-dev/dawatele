@@ -38,14 +38,15 @@ class Brand < ApplicationRecord
   end
 
   def assign_code
-    self.code = create_code
+    code = create_code
+    self.code = code
   end
 
   def create_code
     if Brand.count.zero?
       '01'
     else
-      last_code = Brand.last.code
+      last_code = Brand.order(:created_at).last.code
       last_code.next
     end
   end

@@ -23,6 +23,7 @@ gem "stimulus-rails"
 gem "tailwindcss-rails", "~> 2.3"
 gem "turbo-rails"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem 'will_paginate'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]

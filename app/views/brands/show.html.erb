@@ -1,15 +1,63 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
+<nav class="p-4 text-xs uppercase text-secondary">
+  <ol class="list-none p-0 inline-flex">
+    <li class="flex items-center">
+      <%= link_to "Home", root_path, class:'hover:bg-gray-200 px-2' %>
+    </li>
+    <span class="mx-2">/</span>
+    <li class="flex items-center">
+      <%= link_to "Brands", brands_path, class:'hover:bg-gray-200 px-2' %>
+    </li>
+    <span class="mx-2">/</span>
+    <li class="flex items-center">
+      <span class="text-primary">
+        <%= @brand.name %>
+      </span>
+    </li>
+  </ol>
+</nav>
 
-    <%= render @brand %>
+<hr class="my-2 border border-gray-300 w-3/4">
 
-    <%= link_to "Edit this brand", edit_brand_path(@brand), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this brand", brand_path(@brand), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+<div class="md:w-2/3 w-full flex flex-col mt-6">
+  <div class="w-1/3">
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <% if @brand.logo.attached? %>
+        <%= image_tag @brand.logo, class: "w-1/4 mx-auto" %>
+      <% else %>
+        <h1 class="text-xl font-bold text-center mt-5 capitalize"><%= @brand.name %></h1>
+      <% end %>
     </div>
-    <%= link_to "Back to brands", brands_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+
+    <div class="mt-6">
+      <%= link_to edit_brand_path(@brand), class: "mt-2 py-3 px-5 bg-gray-100 inline-block font-medium bg-blue-100 text-blue-500 text-xs uppercase" do  %>
+        <i class="fa-solid fa-pencil"></i>
+        <span class="ml-2">Edit</span>
+      <% end %>
+      <div class="inline-block ml-2">
+        <%= button_to brand_path(@brand), method: :delete, class: "mt-2 py-3 px-5 bg-gray-100 font-medium bg-red-100 text-red-500 text-xs uppercase" do %>
+          <i class="fa-solid fa-trash"></i>
+          <span class="ml-2">Delete</span>
+        <% end %>
+      </div>
+    </div>
   </div>
+
+  <% unless @brand.products.empty? %>
+    <table class="w-full text-left text-xs border-collapse border border-gray-300 mt-6">
+      <thead class="bg-secondary text-white uppercase text-sm leading-normal">
+        <tr>
+          <th class="p-3 font-medium uppercase">Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @brand.products.each do |product| %>
+          <tr class="<%= cycle('bg-gray-100', '') %>">
+            <td class="p-3">
+              <%= link_to product.name, product, class: "text-blue-500 capitalize" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 </div>

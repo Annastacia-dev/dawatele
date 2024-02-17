@@ -76,7 +76,7 @@ class Product < ApplicationRecord
     if Product.count.zero?
       '01'
     else
-      last_sku = Product.last.sku
+      last_sku = Product.order(:created_at).last.sku
       last_sku.next
     end
   end

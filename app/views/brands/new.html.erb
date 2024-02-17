@@ -1,5 +1,23 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-semibold text-lg uppercase px-4 pt-3">New brand</h1>
-  <hr class="my-1 border border-gray-300">
+<nav class="p-4 text-xs uppercase text-secondary">
+  <ol class="list-none p-0 inline-flex">
+    <li class="flex items-center">
+      <%= link_to "Home", root_path, class:'hover:bg-gray-200 px-2' %>
+    </li>
+    <span class="mx-2">/</span>
+    <li class="flex items-center">
+      <%= link_to "Brands", brands_path, class:'hover:bg-gray-200 px-2' %>
+    </li>
+    <span class="mx-2">/</span>
+    <li class="flex items-center">
+      <span class="text-primary">
+        New brand
+      </span>
+    </li>
+  </ol>
+</nav>
+
+<hr class="my-2 border border-gray-300 w-3/4">
+
+<div class="md:w-2/3 w-full">
   <%= render "form", brand: @brand %>
 </div>

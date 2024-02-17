@@ -48,7 +48,7 @@ class ProductCategory < ApplicationRecord
     if ProductCategory.count.zero?
       '01'
     else
-      last_code = ProductCategory.last.code
+      last_code = ProductCategory.order(:created_at).last.code
       last_code.next
     end
   end
