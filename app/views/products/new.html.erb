@@ -1,7 +1,23 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New product</h1>
+<nav class="p-4 text-xs uppercase text-secondary">
+  <ol class="list-none p-0 inline-flex">
+    <li class="flex items-center">
+      <%= link_to "Home", root_path, class:'hover:bg-gray-200 px-2' %>
+    </li>
+    <span class="mx-2">/</span>
+    <li class="flex items-center">
+      <%= link_to "Products", products_path, class:'hover:bg-gray-200 px-2' %>
+    </li>
+    <span class="mx-2">/</span>
+    <li class="flex items-center">
+      <span class="text-primary">
+        new product
+      </span>
+    </li>
+  </ol>
+</nav>
 
+<hr class="my-2 border border-gray-300 w-3/4">
+
+<div class="md:w-2/3 w-full">
   <%= render "form", product: @product %>
-
-  <%= link_to "Back to products", products_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>

@@ -3,7 +3,11 @@ class ProductsController < ApplicationController
 
   # GET /products or /products.json
   def index
-    @products = Product.all
+    if params[:search].present?
+      @products = Product.search(params[:search]).order(name: :asc).paginate(page: params[:page], per_page: 5)
+    else
+      @products = Product.all.order(name: :asc).paginate(page: params[:page], per_page: 5)
+    end
   end
 
   # GET /products/1 or /products/1.json
@@ -25,7 +29,7 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to product_url(@product), notice: "Product was successfully created." }
+        format.html { redirect_to products_path, notice: "Product was successfully created." }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -60,11 +64,11 @@ class ProductsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
-      @product = Product.find(params[:id])
+      @product = Product.friendly.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.fetch(:product, {})
+      params.require(:product).permit(:name, :description, :brand_id, :product_category_id, :product_subcategory_id, :medical_condition_id, images: [])
     end
 end

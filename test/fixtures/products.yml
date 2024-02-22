@@ -3,12 +3,13 @@
 # Table name: products
 #
 #  id                     :uuid             not null, primary key
+#  code                   :string           not null
 #  description            :text             not null
 #  metadata               :jsonb            not null
 #  name                   :string           not null
 #  sku                    :string           not null
 #  slug                   :string           not null
-#  status                 :integer          default(0), not null
+#  status                 :integer          default("active"), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  brand_id               :uuid             not null

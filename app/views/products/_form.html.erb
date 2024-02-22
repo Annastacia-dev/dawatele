@@ -1,17 +1,43 @@
 <%= form_with(model: product, class: "contents") do |form| %>
-  <% if product.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+  <%= render 'shared/error_messages', object: product %>
 
-      <ul>
-        <% product.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+  <div class="grid md:grid-cols-2 gap-6 p-4">
+    <div class='flex flex-col gap-1'>
+      <%= form.label :name, class: "uppercase text-sm font-medium" %>
+      <%= form.text_field :name, class: 'bg-transparent border border-gray-300 p-3 outline-none focus:ring-transparent focus:outline-none shadow-none',
+      required: true %>
     </div>
-  <% end %>
+    <div class='flex flex-col gap-1'>
+      <%= form.label :product_category_id, class: "uppercase text-sm font-medium" %>
+      <%= form.collection_select :product_category_id, ProductCategory.all.order(:name).map { |category| [category.name.capitalize, category.id] }, :last, :first, { include_blank: "Select a category" }, class: 'bg-transparent border border-gray-300 p-3 outline-none focus:ring-transparent focus:outline-none shadow-none',
+      required: true %>
+    </div>
+    <div class='flex flex-col gap-1'>
+      <%= form.label :brand_id, class: "uppercase text-sm font-medium" %>
+      <%= form.collection_select :brand_id, Brand.all.order(:name).map { |brand| [brand.name.capitalize, brand.id] }, :last, :first, { include_blank: "Select a brand" }, class: 'bg-transparent border border-gray-300 p-3 outline-none focus:ring-transparent focus:outline-none shadow-none',
+      required: true %>
+    </div>
+    <div class='flex flex-col gap-1'>
+      <%= form.label :product_subcategory_id, class: "uppercase text-sm font-medium" %>
+      <%= form.collection_select :product_subcategory_id, ProductSubcategory.all.order(:name).map { |subcategory| [subcategory.name.capitalize, subcategory.id] }, :last, :first, { include_blank: "Select a subcategory" }, class: 'bg-transparent border border-gray-300 p-3 outline-none focus:ring-transparent focus:outline-none shadow-none' %>
+    </div>
+    <div class='flex flex-col gap-1'>
+      <%= form.label :medical_condition_id, class: "uppercase text-sm font-medium" %>
+      <%= form.collection_select :medical_condition_id, MedicalCondition.all.order(:name).map { |condition| [condition.name.capitalize, condition.id] }, :last, :first, { include_blank: "Select a medical condition" }, class: 'bg-transparent border border-gray-300 p-3 outline-none focus:ring-transparent focus:outline-none shadow-none' %>
+    </div>
+    <div class='flex flex-col gap-1'>
+      <%= form.label :images, class: "uppercase text-sm font-medium" %>
+      <%= form.file_field :images, multiple: true, class: 'bg-transparent border border-gray-300 p-3 outline-none focus:ring-transparent focus:outline-none shadow-none' %>
+    </div>
 
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <div class='flex flex-col gap-1 col-span-2'>
+      <%= form.label :description, class: "uppercase text-sm font-medium" %>
+      <%= form.text_area :description, class: 'bg-transparent border border-gray-300 p-3 outline-none focus:ring-transparent focus:outline-none shadow-none',
+      required: true, rows: 6 %>
+    </div>
   </div>
+  <div class="inline mt-4 p-4">
+      <%= form.submit class: "rounded py-3 px-5 bg-primary text-white inline-block font-medium cursor-pointer border-none outline-none uppercase text-sm" %>
+    </div>
 <% end %>
+

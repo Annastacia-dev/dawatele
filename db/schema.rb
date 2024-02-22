@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_17_095008) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_22_105054) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -107,6 +107,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_17_095008) do
     t.uuid "medical_condition_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "code", null: false
     t.index ["brand_id"], name: "index_products_on_brand_id"
     t.index ["medical_condition_id"], name: "index_products_on_medical_condition_id"
     t.index ["product_category_id"], name: "index_products_on_product_category_id"

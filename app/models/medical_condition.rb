@@ -6,7 +6,7 @@
 #  code       :string           not null
 #  name       :string           not null
 #  slug       :string           not null
-#  status     :integer          default(0), not null
+#  status     :integer          default("active"), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -46,7 +46,7 @@ class MedicalCondition < ApplicationRecord
     if MedicalCondition.count.zero?
       '01'
     else
-      last_code = MedicalCondition.order(:created_at).last.code
+      last_code = MedicalCondition.last.code
       last_code.next
     end
   end
