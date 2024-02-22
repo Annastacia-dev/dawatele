@@ -1,15 +1,64 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
+<nav class="p-4 text-xs uppercase text-secondary">
+  <ol class="list-none p-0 inline-flex">
+    <li class="flex items-center">
+      <%= link_to "Home", root_path, class:'hover:bg-gray-200 px-2' %>
+    </li>
+    <span class="mx-2">/</span>
+    <li class="flex items-center">
+      <%= link_to "Medical conditions", medical_conditions_path, class:'hover:bg-gray-200 px-2' %>
+    </li>
+    <span class="mx-2">/</span>
+    <li class="flex items-center">
+      <span class="text-primary">
+        <%= @medical_condition.name %>
+      </span>
+    </li>
+  </ol>
+</nav>
 
-    <%= render @medical_condition %>
+<hr class="my-2 border border-gray-300 w-3/4">
 
-    <%= link_to "Edit this medical_condition", edit_medical_condition_path(@medical_condition), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this medical_condition", medical_condition_path(@medical_condition), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+<div class="md:w-3/4 w-full flex flex-col mt-6">
+
+  <div class="flex justify-end items-center">
+    <div data-controller="dropdown" class='relative'>
+      <button data-action="click->dropdown#toggle" class="p-2 text-white text-sm bg-secondary uppercase">
+        <span >actions</span>
+        <i class="fa-solid fa-caret-down ml-2"></i>
+      </button>
+      <div data-dropdown-target="menu" class="hidden bg-white border border-gray-300 absolute right-0 top-10  w-40  shadow-lg text-sm uppercase">
+        <%= link_to edit_medical_condition_path(@medical_condition), class: "block p-2 text-blue-500" do %>
+          <i class="fa-solid fa-pencil"></i>
+          <span class="ml-2">Edit</span>
+        <% end %>
+        <hr class="my-1 border border-gray-300">
+        <%= button_to @medical_condition, method: :delete, data: { confirm: "Are you sure?" }, class: "block p-2 text-sm uppercase text-red-500" do %>
+          <i class="fa-solid fa-trash"></i>
+          <span class="ml-2">Delete</span>
+        <% end %>
+      </div>
     </div>
-    <%= link_to "Back to medical_conditions", medical_conditions_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
   </div>
+  </div>
+
+
+  <% unless @medical_condition.products.empty? %>
+    <table class="w-full text-left text-xs border-collapse border border-gray-300 mt-6">
+      <thead class="bg-secondary text-white uppercase text-sm leading-normal">
+        <tr>
+          <th class="p-3 font-medium uppercase">Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @medical_condition.products.each do |product| %>
+          <tr class="<%= cycle('bg-gray-100', '') %>">
+            <td class="p-3">
+              <%= link_to product.name, product, class: "text-blue-500 capitalize" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  <% end %>
 </div>

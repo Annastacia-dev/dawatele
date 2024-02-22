@@ -3,7 +3,11 @@ class MedicalConditionsController < ApplicationController
 
   # GET /medical_conditions or /medical_conditions.json
   def index
-    @medical_conditions = MedicalCondition.all
+    if params[:search].present?
+      @medical_conditions = MedicalCondition.search(params[:search]).order(name: :asc).paginate(page: params[:page], per_page: 5)
+    else
+      @medical_conditions = MedicalCondition.all.order(name: :asc).paginate(page: params[:page], per_page: 5)
+    end
   end
 
   # GET /medical_conditions/1 or /medical_conditions/1.json
@@ -25,7 +29,7 @@ class MedicalConditionsController < ApplicationController
 
     respond_to do |format|
       if @medical_condition.save
-        format.html { redirect_to medical_condition_url(@medical_condition), notice: "Medical condition was successfully created." }
+        format.html { redirect_to medical_conditions_path(@medical_condition), notice: "Medical condition was successfully created." }
         format.json { render :show, status: :created, location: @medical_condition }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -60,11 +64,11 @@ class MedicalConditionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_medical_condition
-      @medical_condition = MedicalCondition.find(params[:id])
+      @medical_condition = MedicalCondition.friendly.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def medical_condition_params
-      params.fetch(:medical_condition, {})
+      params.require(:medical_condition).permit(:name)
     end
 end
