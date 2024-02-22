@@ -3,7 +3,11 @@ class VendorsController < ApplicationController
 
   # GET /vendors or /vendors.json
   def index
-    @vendors = Vendor.all
+    if params[:search].present?
+      @vendors = Vendor.search(params[:search]).order(name: :asc).paginate(page: params[:page], per_page: 5)
+    else
+      @vendors = Vendor.all.order(name: :asc).paginate(page: params[:page], per_page: 5)
+    end
   end
 
   # GET /vendors/1 or /vendors/1.json
@@ -25,7 +29,7 @@ class VendorsController < ApplicationController
 
     respond_to do |format|
       if @vendor.save
-        format.html { redirect_to vendor_url(@vendor), notice: "Vendor was successfully created." }
+        format.html { redirect_to vendors_path, notice: "Vendor was successfully created." }
         format.json { render :show, status: :created, location: @vendor }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -60,11 +64,11 @@ class VendorsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_vendor
-      @vendor = Vendor.find(params[:id])
+      @vendor = Vendor.friendly.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def vendor_params
-      params.fetch(:vendor, {})
+      params.require(:vendor).permit(:name)
     end
 end

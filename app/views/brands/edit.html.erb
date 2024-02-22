@@ -9,8 +9,12 @@
     </li>
     <span class="mx-2">/</span>
     <li class="flex items-center">
+      <%= link_to @brand.name, @brand, class:'hover:bg-gray-200 px-2' %>
+    </li>
+    <span class="mx-2">/</span>
+    <li class="flex items-center">
       <span class="text-primary">
-        edit <%= @brand.name %>
+        edit
       </span>
     </li>
   </ol>
