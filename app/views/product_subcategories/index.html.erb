@@ -1,14 +1,85 @@
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
+<nav class="p-4 text-xs uppercase text-secondary mb-5">
+  <ol class="list-none p-0 inline-flex">
+    <li class="flex items-center">
+      <%= link_to "Home", root_path, class:'hover:bg-gray-200 px-2' %>
+    </li>
+    <span class="mx-2">/</span>
+    <li class="flex items-center">
+      <span class="text-primary">
+        Product subcategories
+      </span>
+    </li>
+  </ol>
+</nav>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Product subcategories</h1>
-    <%= link_to "New product subcategory", new_product_subcategory_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+<div class="bg-gray-50 border border-gray-300 rounded-lg w-11/12 mb-6">
+  <h1 class="font-semibold text-lg uppercase px-4 pt-3">
+    product subcategories (<%= @product_subcategories.count %>)
+  </h1>
+  <hr class="my-1 border border-gray-300">
+
+  <div class="px-4 pt-6 flex justify-between items-center">
+    <div class="flex justify-start items-center gap-1">
+      <%= form_with(url: product_subcategories_path, method: "get") do %>
+        <%= text_field_tag :search, params[:search], class: "bg-transparent w-80 p-3 text-xs text-gray-700 focus:ring-transparent focus:outline-none border border-gray-300 rounded" %>
+        <button class="px-4 py-2 border border-gray-300 rounded bg-gray-100 text-gray-500 cursor-pointer" type="submit">
+          <i class="fa-solid fa-search"></i>
+        </button>
+      <% end %>
+      <%= link_to product_subcategories_path, class: "px-4 py-2 border border-gray-300 rounded bg-gray-100 text-gray-500" do %>
+        <i class="fa-solid fa-rotate-right"></i>
+      <% end %>
+    </div>
+
+    <%= link_to new_product_subcategory_path, class: "p-2 text-sm bg-secondary text-white block font-medium rounded hover:bg-secondary-dark flex items-center gap-2" do %>
+      <i class="fa-solid fa-plus"></i>
+      <span class="ml-2">New Product Subcategory</span>
+    <% end %>
   </div>
 
-  <div id="product_subcategories" class="min-w-full">
-    <%= render @product_subcategories %>
+  <div class="flex justify-between items-center px-4 py-3">
+    <table class="w-full text-left text-xs border-collapse border border-gray-300 mt-6">
+      <thead class="bg-secondary text-white uppercase text-sm leading-normal">
+        <tr>
+          <th class="p-3 font-medium uppercase">#</th>
+          <th class="p-3 font-medium uppercase">Product Subcategory</th>
+          <th class="p-3 font-medium uppercase"> category </th>
+          <th class="p-3 font-medium uppercase">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @product_subcategories.each_with_index do |product_subcategory, index| %>
+          <tr class="<%= cycle('bg-gray-100', '') %>">
+            <td class="p-3">
+              <%= index + 1 %>
+            </td>
+            <td class="p-3 flex flex-col items-start gap-3 w-1/2 ">
+              <%= link_to product_subcategory.name, product_subcategory, class: "text-blue-500 capitalize" %>
+            </td>
+            <td class="p-3">
+              <%=link_to product_category_path(product_subcategory.product_category
+                ), class: "font-bold text-secondary text-xs flex gap-1 items-center" do %>
+                  <i class="fa-solid fa-tag"></i>
+                  <%= product_subcategory.product_category.name %>
+                <% end %>
+            </td>
+            <td class="p-3">
+              <%= link_to edit_product_subcategory_path(product_subcategory), class: "p-2  text-blue-500 rounded-lg" do %>
+                <i class="fa-solid fa-pencil"></i>
+              <% end %>
+              <div class='inline-block ml-2'>
+               <%= button_to product_subcategory_path(product_subcategory), method: :delete, data: { confirm: "Are you sure?" }, class: "p-2 text-red-500 rounded-lg block" do %>
+                <i class="fa-solid fa-trash"></i>
+              <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flex justify-end">
+    <%= will_paginate @product_subcategories %>
   </div>
 </div>

@@ -15,13 +15,15 @@ class ProductCategory < ApplicationRecord
   has_paper_trail
   include Statusable
   include Sluggable
+  include Searchable
 
   friendly_slug_scope to_slug: :name
+  searchable against: :name
 
   # Associations
   has_one_attached :image, dependent: :destroy
   has_many :products, dependent: :destroy
-  has_many :product_sub_categories, dependent: :destroy
+  has_many :product_subcategories, dependent: :destroy
 
   # Callbacks
   before_validation :downcase_name

@@ -29,7 +29,7 @@ class MedicalConditionsController < ApplicationController
 
     respond_to do |format|
       if @medical_condition.save
-        format.html { redirect_to medical_conditions_path(@medical_condition), notice: "Medical condition was successfully created." }
+        format.html { redirect_to medical_conditions_path, notice: "Medical condition was successfully created." }
         format.json { render :show, status: :created, location: @medical_condition }
       else
         format.html { render :new, status: :unprocessable_entity }

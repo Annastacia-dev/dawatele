@@ -39,6 +39,10 @@
     background-color: #031375;
     color: #fff;
   }
+
+  [data-tab].active {
+    @apply border-b-2 border-primary text-primary font-bold;
+  }
 }
 
 

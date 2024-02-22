@@ -24,8 +24,10 @@ class ProductSubcategory < ApplicationRecord
   has_paper_trail
   include Statusable
   include Sluggable
+  include Searchable
 
   friendly_slug_scope to_slug: :name
+  searchable against: :name
 
   # Associations
   has_one_attached :image, dependent: :destroy
@@ -54,10 +56,10 @@ class ProductSubcategory < ApplicationRecord
   end
 
   def create_code
-    if ProductSubCategory.count.zero?
+    if ProductSubcategory.count.zero?
       '01'
     else
-      last_code = ProductSubCategory.order(:created_at).last.code
+      last_code = ProductSubcategory.order(:created_at).last.code
       last_code.next
     end
   end

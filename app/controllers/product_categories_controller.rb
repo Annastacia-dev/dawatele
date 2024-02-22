@@ -3,7 +3,11 @@ class ProductCategoriesController < ApplicationController
 
   # GET /product_categories or /product_categories.json
   def index
-    @product_categories = ProductCategory.all
+    if params[:search].present?
+      @product_categories = ProductCategory.search(params[:search]).order(name: :asc).paginate(page: params[:page], per_page: 5)
+    else
+      @product_categories = ProductCategory.all.order(name: :asc).paginate(page: params[:page], per_page: 5)
+    end
   end
 
   # GET /product_categories/1 or /product_categories/1.json
@@ -25,7 +29,7 @@ class ProductCategoriesController < ApplicationController
 
     respond_to do |format|
       if @product_category.save
-        format.html { redirect_to product_category_url(@product_category), notice: "Product category was successfully created." }
+        format.html { redirect_to product_categories_path, notice: "Product category was successfully created." }
         format.json { render :show, status: :created, location: @product_category }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -60,11 +64,11 @@ class ProductCategoriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product_category
-      @product_category = ProductCategory.find(params[:id])
+      @product_category = ProductCategory.friendly.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def product_category_params
-      params.fetch(:product_category, {})
+      params.require(:product_category).permit(:name, :description)
     end
 end

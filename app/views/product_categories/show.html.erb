@@ -1,15 +1,105 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
+<nav class="p-4 text-xs uppercase text-secondary">
+  <ol class="list-none p-0 inline-flex">
+    <li class="flex items-center">
+      <%= link_to "Home", root_path, class:'hover:bg-gray-200 px-2' %>
+    </li>
+    <span class="mx-2">/</span>
+    <li class="flex items-center">
+      <%= link_to "Product categories", product_categories_path, class:'hover:bg-gray-200 px-2' %>
+    </li>
+    <span class="mx-2">/</span>
+    <li class="flex items-center">
+      <span class="text-primary">
+        <%= @product_category.name %>
+      </span>
+    </li>
+  </ol>
+</nav>
 
-    <%= render @product_category %>
+<hr class="my-2 border border-gray-300 w-3/4">
 
-    <%= link_to "Edit this product_category", edit_product_category_path(@product_category), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this product_category", product_category_path(@product_category), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+<div class="md:w-3/4 w-full flex flex-col mt-3">
+
+  <div class="flex justify-end items-center">
+    <div data-controller="dropdown" class='relative'>
+      <button data-action="click->dropdown#toggle" class="p-2 text-white text-sm bg-secondary uppercase">
+        <span >actions</span>
+        <i class="fa-solid fa-caret-down ml-2"></i>
+      </button>
+      <div data-dropdown-target="menu" class="hidden bg-white border border-gray-300 absolute right-0 top-10  w-40  shadow-lg text-sm uppercase">
+        <%= link_to edit_product_category_path(@product_category), class: "block p-2 text-blue-500" do %>
+          <i class="fa-solid fa-pencil"></i>
+          <span class="ml-2">Edit</span>
+        <% end %>
+        <hr class="my-1 border border-gray-300">
+        <%= button_to @product_category, method: :delete, data: { confirm: "Are you sure?" }, class: "block p-2 text-sm uppercase text-red-500" do %>
+          <i class="fa-solid fa-trash"></i>
+          <span class="ml-2">Delete</span>
+        <% end %>
+      </div>
     </div>
-    <%= link_to "Back to product_categories", product_categories_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  </div>
+
+
+  <div data-controller='tabs' class="mt-6">
+    <ul data-tabs-target="tabs" class="flex border-b border-gray-300 text-sm">
+      <li data-action="click->tabs#activate" data-tabs-target="tab" data-tabs-action="click->tabs#activate" class="p-4 text-secondary uppercase cursor-pointer border-b-2 border-transparent active:border-primary active:text-primary" data-tab="tab-1">Products</li>
+      <li data-action="click->tabs#activate" data-tabs-target="tab" data-tabs-action="click->tabs#activate" class="p-4 text-secondary uppercase cursor-pointer border-b-2 border-transparent active:border-primary active:text-primary" data-tab="tab-2">Subcategories</li>
+    </ul>
+
+    <div data-tabs-target="panels" class="p-4" data-tab="tab-1">
+      <% unless @product_category.products.empty? %>
+        <table class="w-full text-left text-xs border-collapse border border-gray-300 mt-6">
+          <thead class="bg-secondary text-white uppercase text-sm leading-normal">
+            <tr>
+              <th class="p-3 font-medium uppercase">Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @product_category.products.each do |product| %>
+              <tr class="<%= cycle('bg-gray-100', '') %>">
+                <td class="p-3">
+                  <%= link_to product.name, product, class: "text-blue-500 capitalize" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+      <% end %>
+    </div>
+
+    <div data-tabs-target="panels" class="p-4 hidden" data-tab="tab-2">
+      <% unless @product_category.product_subcategories.empty? %>
+        <table class="w-full text-left text-xs border-collapse border border-gray-300 mt-6">
+          <thead class="bg-secondary text-white uppercase text-sm leading-normal">
+            <tr>
+              <th class="p-3 font-medium uppercase">Name</th>
+              <th class="p-3 font-medium uppercase">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @product_category.product_subcategories.each do |subcategory| %>
+              <tr class="<%= cycle('bg-gray-100', '') %>">
+                <td class="p-3">
+                  <%= link_to subcategory.name, subcategory, class: "text-blue-500 capitalize" %>
+                </td>
+                <td class="p-3">
+                  <%= link_to edit_product_subcategory_path(subcategory), class: "p-2  text-blue-500 rounded-lg" do %>
+                    <i class="fa-solid fa-pencil"></i>
+                  <% end %>
+                  <div class='inline-block ml-2'>
+                  <%= button_to product_subcategory_path(subcategory), method: :delete, data: { confirm: "Are you sure?" }, class: "p-2 text-red-500 rounded-lg block" do %>
+                    <i class="fa-solid fa-trash"></i>
+                  <% end %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+
   </div>
 </div>

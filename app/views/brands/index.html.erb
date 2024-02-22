@@ -1,1 +1,78 @@
-<%= render 'admin_view' %>
+<nav class="p-4 text-xs uppercase text-secondary mb-5">
+  <ol class="list-none p-0 inline-flex">
+    <li class="flex items-center">
+      <%= link_to "Home", root_path, class:'hover:bg-gray-200 px-2' %>
+    </li>
+    <span class="mx-2">/</span>
+    <li class="flex items-center">
+      <span class="text-primary">
+        Brands
+      </span>
+    </li>
+  </ol>
+</nav>
+
+<div class="bg-gray-50 border border-gray-300 rounded-lg w-11/12 mb-6">
+  <h1 class="font-semibold text-lg uppercase px-4 pt-3">
+    brands (<%= @brands.count %>)
+  </h1>
+  <hr class="my-1 border border-gray-300">
+
+  <div class="px-4 pt-6 flex justify-between items-center">
+    <div class="flex justify-start items-center gap-1">
+      <%= form_with(url: brands_path, method: "get") do %>
+        <%= text_field_tag :search, params[:search], class: "bg-transparent w-80 p-3 text-xs text-gray-700 focus:ring-transparent focus:outline-none border border-gray-300 rounded" %>
+        <button class="px-4 py-2 border border-gray-300 rounded bg-gray-100 text-gray-500 cursor-pointer" type="submit">
+          <i class="fa-solid fa-search"></i>
+        </button>
+      <% end %>
+      <%= link_to brands_path, class: "px-4 py-2 border border-gray-300 rounded bg-gray-100 text-gray-500" do %>
+        <i class="fa-solid fa-rotate-right"></i>
+      <% end %>
+    </div>
+
+    <%= link_to new_brand_path, class: "p-2 text-sm bg-secondary text-white block font-medium rounded hover:bg-secondary-dark flex items-center gap-2" do %>
+      <i class="fa-solid fa-plus"></i>
+      <span class="ml-2">New Brand</span>
+    <% end %>
+  </div>
+
+  <div class="flex justify-between items-center px-4 py-3">
+    <table class="w-full text-left text-xs border-collapse border border-gray-300 mt-6">
+      <thead class="bg-secondary text-white uppercase text-sm leading-normal">
+        <tr>
+          <th class="p-3 font-medium uppercase">#</th>
+          <th class="p-3 font-medium uppercase">Brand</th>
+          <th class="p-3 font-medium uppercase">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @brands.each_with_index do |brand, index| %>
+          <tr class="<%= cycle('bg-gray-100', '') %>">
+            <td class="p-3">
+              <%= index + 1 %>
+            </td>
+            <td class="p-3 flex gap-3 items-center">
+              <%= image_tag brand.logo ? brand.logo.url : "https://via.placeholder.com/150", class: "w-10 h-10 object-cover rounded-full border" %>
+              <%= link_to brand.name, brand, class: "text-blue-500 capitalize" %>
+            </td>
+            <td class="p-3">
+              <%= link_to edit_brand_path(brand), class: "p-2  text-blue-500 rounded-lg" do %>
+                <i class="fa-solid fa-pencil"></i>
+              <% end %>
+              <div class='inline-block ml-2'>
+               <%= button_to brand_path(brand), method: :delete, data: { confirm: "Are you sure?" }, class: "p-2 text-red-500 rounded-lg block" do %>
+                <i class="fa-solid fa-trash"></i>
+              <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flex justify-end">
+    <%= will_paginate @brands %>
+  </div>
+</div>

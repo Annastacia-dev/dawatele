@@ -1,3 +1,17 @@
+<nav class="p-4 text-xs uppercase text-secondary mb-5">
+  <ol class="list-none p-0 inline-flex">
+    <li class="flex items-center">
+      <%= link_to "Home", root_path, class:'hover:bg-gray-200 px-2' %>
+    </li>
+    <span class="mx-2">/</span>
+    <li class="flex items-center">
+      <span class="text-primary">
+        medical conditions
+      </span>
+    </li>
+  </ol>
+</nav>
+
 <div class="bg-gray-50 border border-gray-300 rounded-lg w-11/12 mb-6">
   <h1 class="font-semibold text-lg uppercase px-4 pt-3">
     medical conditions (<%= @medical_conditions.count %>)
