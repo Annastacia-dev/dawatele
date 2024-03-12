@@ -13,8 +13,12 @@
   </head>
 
   <body>
-    <%= render("layouts/sidebar/admin_sidebar") %>
-    <main class="relative pl-56 pt-10">
+    <% if current_user&.admin? %>
+      <%= render("layouts/navbar/admin_sidebar") %>
+    <% else %>
+      <%= render("layouts/navbar") %>
+    <% end %>
+    <main class="relative sm:pl-56 sm:pt-10 p-5">
       <% unless flash.empty? %>
         <div id="flash" class="text-white sm:pl-20 absolute top-0 right-0 z-50 w-[50%]">
           <% flash.keys.each do |k| %>

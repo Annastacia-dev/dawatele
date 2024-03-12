@@ -1,0 +1,75 @@
+
+<nav class="p-4 bg-gray-200">
+    <div class="container mx-auto flex justify-between items-center">
+        <div class="flex items-center space-x-4">
+         <%= image_tag('logo.png', alt: "Dawatele Logo", class: "rounded-full w-8 h-8 object-cover") %>
+         <span class="font-bold text-lg sm:flex hidden">
+            dawatele
+         </span>
+        </div>
+
+        <ul class="hidden md:flex space-x-8 text-sm">
+            <li data-controller="dropdown" class='relative'>
+                <button data-action="click->dropdown#toggle" class="flex items-center gap-1 hover:underline">
+                    <p class='flex items-center gap-2 capitalize'>
+                    <span class>Shop By Category</span>
+                    </p>
+                    <i class="fa-solid fa-caret-down"></i>
+                </button>
+
+                <ul data-dropdown-target="menu" class="hidden rounded-md mt-3 flex flex-col gap-3 absolute px-4 py-2  border w-60 z-10 bg-gray-900 text-white">
+                    <% ProductCategory.active.each_with_index do |category, index| %>
+                    <li class='text-center capitalize'>
+                      <%= link_to category.name, product_category_path(category), class: "hover:underline" %>
+                    </li>
+                    <% if index < ProductCategory.active.length - 1 %>
+                        <li class="border-b border-white"></li>
+                    <% end %>
+                    <% end %>
+                </ul>
+            </li>
+
+            <li>
+              <a href="#" class="hover:underline">
+                <i class="fa-solid fa-plus"></i>
+                Upload prescription
+              </a>
+              </li>
+        </ul>
+
+        <ul class="flex space-x-8 text-sm">
+          <div class='flex space-x-4'>
+            <li>
+            <%= link_to user_session_path, class: "uppercase hover:underline" do %>
+              sign in
+            <% end %>
+            </li>
+            <span class="text-gray-500">|</span>
+            <li>
+            <%= link_to new_user_registration_path, class: "uppercase hover:underline" do %>
+              sign up
+            <% end %>
+            </li>
+          </div>
+          <li>
+            <i class="fa-solid fa-cart-shopping"></i>
+          </li>
+        </ul>
+
+        <ul></ul>
+
+        <div class="md:hidden">
+            <button class="focus:outline-none" onclick="document.getElementById('mobile-menu').classList.toggle('hidden'); document.getElementById('menu-closed').classList.toggle('hidden'); document.getElementById('menu-open').classList.toggle('hidden')">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="menu-closed">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+                <svg class="h-6 w-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="menu-open">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <%= render 'layouts/mobile_navbar' %>
+
+</nav>

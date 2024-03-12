@@ -12,6 +12,7 @@
 #
 class Brand < ApplicationRecord
   has_paper_trail
+
   include Statusable
   include Sluggable
   include Searchable
