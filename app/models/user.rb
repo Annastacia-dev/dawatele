@@ -57,4 +57,15 @@ class User < ApplicationRecord
   validates :terms_and_conditions_and_privacy_policy, acceptance: true, on: :create
 
   # --- instance methods ---
+  def name
+    "#{first_name} #{last_name}"
+  end
+
+  def admin?
+    role == 'admin'
+  end
+
+  def customer?
+    role == 'customer'
+  end
 end

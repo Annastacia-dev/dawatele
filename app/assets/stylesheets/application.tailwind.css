@@ -10,7 +10,6 @@
     scroll-behavior: smooth;
     @apply antialiased;
     @apply bg-gray-100;
-    @apply font-poppins;
   }
   .pagination {
     display: flex;
