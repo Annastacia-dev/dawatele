@@ -14,7 +14,7 @@
 
   <body>
     <% if current_user&.admin? %>
-      <%= render("layouts/navbar/admin_sidebar") %>
+      <%= render("layouts/sidebar/admin_sidebar") %>
     <% else %>
       <%= render("layouts/navbar") %>
     <% end %>

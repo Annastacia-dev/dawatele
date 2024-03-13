@@ -2,16 +2,6 @@ class ApplicationController < ActionController::Base
   before_action :set_paper_trail_whodunnit
   before_action :configure_permitted_params, if: :devise_controller?
 
-  def after_sign_in_path_for(resource)
-    if resource.admin?
-      admin_dashboard_path
-    elsif resource.customer?
-      customer_dashboard_path
-    else
-      root_path
-    end
-  end
-
   private
 
   def configure_permitted_params

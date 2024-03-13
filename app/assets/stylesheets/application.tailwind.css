@@ -11,6 +11,34 @@
     @apply antialiased;
     @apply bg-gray-100;
   }
+
+  [data-controller="carousel"] {
+    position: relative;
+    overflow: hidden;
+  }
+
+  [data-carousel-target="slides"] {
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  [data-carousel-target="slides"]::-webkit-scrollbar {
+    display: none;
+  }
+
+  [data-controller="carousel"] button {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+  }
+
+
   .pagination {
     display: flex;
     justify-content: center;

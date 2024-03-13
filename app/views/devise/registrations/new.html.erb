@@ -15,22 +15,22 @@
 
         <div class="flex flex-col gap-1">
           <%= f.label :first_name, class: "block text-gray-600 text-sm font-semibold" %>
-          <%= f.text_field :first_name, class: " bg-transparent border-gray-800 focus:outline-none focus:bg-transparent  px-4 py-2" %>
+          <%= f.text_field :first_name, class: " bg-transparent border-gray-800 focus:outline-none focus:bg-transparent  px-4 py-2", required: true %>
         </div>
 
         <div class="flex flex-col gap-1">
           <%= f.label :last_name,class: "block text-gray-600 text-sm font-semibold" %>
-          <%= f.text_field :last_name, class: " bg-transparent border-gray-800 focus:outline-none focus:bg-transparent  px-4 py-2" %>
+          <%= f.text_field :last_name, class: " bg-transparent border-gray-800 focus:outline-none focus:bg-transparent  px-4 py-2", required: true %>
         </div>
 
         <div class="flex flex-col gap-1">
           <%= f.label :email, class: "block text-gray-600 text-sm font-semibold" %>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: " bg-transparent border-gray-800 focus:outline-none focus:bg-transparent  px-4 py-2" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: " bg-transparent border-gray-800 focus:outline-none focus:bg-transparent  px-4 py-2", required: true %>
         </div>
 
         <div class="flex flex-col gap-1">
         <%= f.label :phone_number, class: "block text-gray-600 text-sm font-semibold" %>
-          <%= f.text_field :phone_number, class: " bg-transparent border-gray-800 focus:outline-none focus:bg-transparent  px-4 py-2" %>
+          <%= f.text_field :phone_number, class: " bg-transparent border-gray-800 focus:outline-none focus:bg-transparent  px-4 py-2", required: true %>
         </div>
 
         <div class="flex flex-col gap-1">
@@ -40,12 +40,19 @@
             <em class='text-gray-600 text-sm font-semibold'>(<%= @minimum_password_length %> characters minimum)</em>
             <% end %>
           </div>
-          <%= f.password_field :password, autocomplete: "new-password", class: " bg-transparent border-gray-800 focus:outline-none focus:bg-transparent  px-4 py-2" %>
+          <%= f.password_field :password, autocomplete: "new-password", class: " bg-transparent border-gray-800 focus:outline-none focus:bg-transparent  px-4 py-2", required: true %>
         </div>
 
         <div class="flex flex-col gap-1">
           <%= f.label :password_confirmation, class: "block text-gray-600 text-sm font-semibold" %>
-          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: " bg-transparent border-gray-800 focus:outline-none focus:bg-transparent  px-4 py-2" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: " bg-transparent border-gray-800 focus:outline-none focus:bg-transparent  px-4 py-2", required: true %>
+        </div>
+
+        <div class="flex gap-3 items-center col-span-2">
+          <%= f.check_box :terms_and_conditions_and_privacy_policy, class: "bg-transparent border-gray-800 focus:outline-none focus:bg-transparent h-6 w-6" %>
+          <%= f.label :terms_and_conditions_and_privacy_policy, class: "text-sm font-semibold" do %>
+            I agree to the <%= link_to "Terms and Conditions", "#", class:'text-primary hover:underline' %> and <%= link_to "Privacy Policy", "#", class: 'text-primary hover:underline' %>
+          <% end %>
         </div>
       </div>
 
