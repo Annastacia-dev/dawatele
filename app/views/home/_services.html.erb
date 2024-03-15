@@ -1,0 +1,33 @@
+<% services = [
+  {
+    title: 'Fast Delivery',
+    description: 'Get your medicine delivered at your doorsteps all day everyday',
+    image: 'delivery.png',
+    background: 'bg-gradient-to-r from-blue-200 to-blue-300'
+  },
+  {
+    title: '24/7 Support',
+    description: 'Get your medicine delivered at your doorsteps all day everyday',
+    image: 'customer-support.png',
+    background: 'bg-gradient-to-r from-green-200 to-green-300'
+  },
+  {
+    title: 'Quality Medicine',
+    description: 'Get your medicine delivered at your doorsteps all day everyday',
+    image: 'quality-medicine.png',
+    background: 'bg-gradient-to-r from-violet-200 to-violet-300'
+  }
+] %>
+
+<div class="flex sm:flex-row flex-col gap-4 z-10 px-6">
+  <% services.each do |service| %>
+    <div class="<%= service[:background]%> px-4 py-12 rounded-lg shadow-lg flex  items-center gap-4 hover:scale-105">
+      <div class='flex flex-col'>
+        <h2 class="font-bold text-lg"><%= service[:title] %></h2>
+        <p class="text-sm"><%= service[:description] %></p>
+      </div>
+      <%= image_tag(service[:image], class: 'sm:w-40 w-20 sm:h-40 h-20') if service[:image].is_a?(String) %>
+
+    </div>
+  <% end %>
+</div>

@@ -1,3 +1,17 @@
+<% links = [
+  { path: root_path, icon: 'fa-home', title: 'dashboard' },
+  { path: brands_path, icon: 'fa-tags', title: 'brands' },
+  { path: medical_conditions_path, icon: 'fa-virus', title: 'medical conditions' },
+  { path: products_path, icon: 'fa-pills', title: 'products' },
+  { path: product_categories_path, icon: 'fa-layer-group', title: 'categories' },
+  { path: product_subcategories_path, icon: 'fa-tags', title: 'subcategories' },
+  { path: vendors_path, icon: 'fa-shop', title: 'vendors'}
+
+] %>
+
+
+
+
 <div class='bg-gray-900 w-1/10 fixed min-h-screen text-white top-0 left-0 px-3 py-1'>
    <div class='flex flex-col items-start text-xs text-white list-style-none gap-1'>
       <%= link_to root_path, class: 'flex justify-center items-center gap-2 text-white no-underline p-4 hover:bg-gray-800' do %>
@@ -49,6 +63,14 @@
         <i class="fa-solid fa-shop"></i>
         <p class='uppercase'>vendors</p>
       <% end %>
+
+      <hr class='w-full border border-gray-800'>
+
+      <%= button_to destroy_user_session_path, method: :delete, class: 'flex justify-center items-center gap-2 text-red-500 no-underline p-4 hover:bg-red-800 hover:text-white' do %>
+        <i class="fa-solid fa-sign-out"></i>
+        <p class='uppercase'>logout</p>
+      <% end %>
+
 
    </div>
 </div>
