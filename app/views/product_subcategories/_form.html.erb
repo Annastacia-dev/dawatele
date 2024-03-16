@@ -9,7 +9,7 @@
     </div>
     <div class='flex flex-col gap-1'>
       <%= form.label :product_category_id, class: "uppercase text-sm font-medium" %>
-      <%= form.collection_select :product_category_id, ProductCategory.all.order(:name).map { |category| [category.name.capitalize, category.id] }, :last, :first, { include_blank: "Select a category" }, class: 'bg-transparent border border-gray-300 p-3 outline-none w-3/4 focus:ring-transparent focus:outline-none shadow-none',
+      <%= form.collection_select :product_category_id, ProductCategory.active.order(:name).map { |category| [category.name.capitalize, category.id] }, :last, :first, { include_blank: "Select a category" }, class: 'bg-transparent border border-gray-300 p-3 outline-none w-3/4 focus:ring-transparent focus:outline-none shadow-none',
       required: true %>
     </div>
     <div class='flex flex-col gap-1'>

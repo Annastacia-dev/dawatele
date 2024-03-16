@@ -6,7 +6,7 @@ class ProductCategoriesController < ApplicationController
     if params[:search].present?
       @product_categories = ProductCategory.search(params[:search]).order(name: :asc).paginate(page: params[:page], per_page: 5)
     else
-      @product_categories = ProductCategory.all.order(name: :asc).paginate(page: params[:page], per_page: 5)
+      @product_categories = ProductCategory.active.order(name: :asc).paginate(page: params[:page], per_page: 5)
     end
   end
 
