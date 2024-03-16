@@ -1,0 +1,10 @@
+<div class='bg-gray-50 w-1/10 sticky top-0 left-0  py-1'>
+   <div class='flex flex-col items-start text-xs  list-style-none gap-1'>
+    <% ProductCategory.all.order(:name).each do |category| %>
+      <%= link_to category, class: 'flex justify-center items-center gap-2 no-underline p-4 w-full hover:bg-gray-100' do %>
+        <i class="fa-solid fa-tags"></i>
+        <p class='capitalize'><%= category.name %></p>
+      <% end %>
+    <% end %>
+  </div>
+</div>
